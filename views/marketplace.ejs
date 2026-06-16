@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gulio Mtandaoni — Marketplace</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="marketplace-body">
+  <header class="market-header">
+    <div class="logo">Gulio Mtandaoni</div>
+    <nav class="nav-links">
+      <a href="/marketplace" class="<%- activeCategory === 'All' ? 'active-nav' : '' %>">All</a>
+      <a href="/marketplace?category=Electronics" class="<%- activeCategory === 'Electronics' ? 'active-nav' : '' %>">Electronics</a>
+      <a href="/marketplace?category=Phones" class="<%- activeCategory === 'Phones' ? 'active-nav' : '' %>">Phones</a>
+      <a href="/marketplace?category=Fashion" class="<%- activeCategory === 'Fashion' ? 'active-nav' : '' %>">Fashion</a>
+      <a href="/marketplace?category=Shoes" class="<%- activeCategory === 'Shoes' ? 'active-nav' : '' %>">Shoes</a>
+      <a href="/marketplace?category=Gaming" class="<%- activeCategory === 'Gaming' ? 'active-nav' : '' %>">Gaming</a>
+      <a href="/marketplace?category=Home+%26+Lifestyle" class="<%- activeCategory === 'Home & Lifestyle' ? 'active-nav' : '' %>">Home</a>
+    </nav>
+    <div class="header-right">
+      <a href="/cart" class="cart-btn">Cart</a>
+      <a href="/activities" class="profile-btn" title="View My Activities"><%= user %></a>
+    </div>
+  </header>
+
+  <% if (locals.cart_success) { %>
+    <div class="success-banner"><%= cart_success %></div>
+  <% } %>
+
+  <section class="market-hero">
+    <div class="hero-content">
+      <h1>Welcome To Gulio Mtandaoni</h1>
+      <p>Discover premium products with a seamless Gen-Z shopping experience</p>
+      <span class="product-count-badge"><%= products.length %> premium products available</span>
+    </div>
+  </section>
+
+  <main class="products-container">
+    <% if (products.length > 0) { %>
+      <% products.forEach(function(p) { %>
+        <div class="product-card">
+          <div class="discount-badge">20% OFF</div>
+          <img src="<%= p.image || 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=500&q=80' %>" alt="Product Image">
+          <div class="card-details">
+            <h3><%= p.product_name %></h3>
+            <div class="rating">&#11088;&#11088;&#11088;&#11088;&#11090;</div>
+            <div class="price">Tsh. <%= Number(p.price).toLocaleString() %> /=</div>
+            <form method="POST" action="/marketplace/cart">
+              <input type="hidden" name="product_name" value="<%= p.product_name %>">
+              <input type="hidden" name="price" value="<%= p.price %>">
+              <button type="submit" name="cart" class="add-cart-btn">Add To Cart</button>
+            </form>
+          </div>
+        </div>
+      <% }); %>
+    <% } else { %>
+      <p class="no-products">No premium products available at the moment.</p>
+    <% } %>
+  </main>
+
+  <footer class="market-footer">
+    <p>&copy; 2026 Gulio Mtandaoni — Premium Marketplace</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gulio Mtandaoni — My Cart</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="marketplace-body">
+  <header class="market-header">
+    <a href="/marketplace" class="logo" style="text-decoration: none;">Gulio Mtandaoni</a>
+    <div class="header-right">
+      <a href="/marketplace" class="cart-btn" style="background:#555;">Continue Shopping</a>
+      <a href="/activities" class="profile-btn" title="View My Activities"><%= user %></a>
+    </div>
+  </header>
+
+  <div class="cart-page-wrapper">
+    <% if (purchaseSuccess) { %>
+      <div class="checkout-success-box">
+        <h2>Payment Successful!</h2>
+        <p>Thank you for shopping at Gulio Mtandaoni. Your order is being processed.</p>
+        <a href="/marketplace" class="back-market-btn">Return to Marketplace</a>
+      </div>
+    <% } else { %>
+      <h1 class="cart-title">My Shopping Cart (<%= totalItems %>)</h1>
+
+      <div class="cart-layout">
+        <div class="cart-items-column">
+          <% if (items.length > 0) { %>
+            <% items.forEach(function(item) { %>
+              <div class="cart-item-row">
+                <img src="<%= item.image || 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=200&q=80' %>" alt="Item Image">
+                <div class="cart-item-info">
+                  <h3><%= item.product_name %></h3>
+                  <p class="cart-item-price">Tsh. <%= Number(item.price).toLocaleString() %> /=</p>
+                </div>
+                <form method="POST" action="/cart/remove">
+                  <input type="hidden" name="product_name" value="<%= item.product_name %>">
+                  <button type="submit" name="remove" class="remove-btn" title="Remove from cart">Remove</button>
+                </form>
+              </div>
+            <% }); %>
+          <% } else { %>
+            <div class="empty-cart">
+              <p>Your cart is looking empty.</p>
+              <a href="/marketplace">Explore Premium Products</a>
+            </div>
+          <% } %>
+        </div>
+
+        <% if (items.length > 0) { %>
+          <div class="order-summary-column">
+            <div class="summary-box">
+              <h3>Order Summary</h3>
+              <div class="summary-line">
+                <span>Subtotal:</span>
+                <span>Tsh. <%= Number(totalPrice).toLocaleString() %> /=</span>
+              </div>
+              <div class="summary-line">
+                <span>Shipping:</span>
+                <span style="color:#00c853;font-weight:600;">FREE</span>
+              </div>
+              <hr class="summary-divider">
+              <div class="summary-line total-line">
+                <span>Estimated Total:</span>
+                <span>Tsh. <%= Number(totalPrice).toLocaleString() %> /=</span>
+              </div>
+              <form method="POST" action="/cart/checkout">
+                <button type="submit" name="checkout" class="checkout-btn">Complete Purchase</button>
+              </form>
+              <div class="secure-badge">Safe & Secure Gen-Z Checkout</div>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    <% } %>
+  </div>
+
+  <footer class="market-footer">
+    <p>&copy; 2026 Gulio Mtandaoni — Premium Marketplace</p>
+  </footer>
+</body>
+</html>

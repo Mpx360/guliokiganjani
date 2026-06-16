@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gulio Mtandaoni — My Activities</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="marketplace-body">
+  <header class="market-header">
+    <a href="/marketplace" class="logo" style="text-decoration: none;">Gulio Mtandaoni</a>
+    <div class="header-right">
+      <a href="/marketplace" class="cart-btn" style="background:#111;">Marketplace</a>
+      <a href="/cart" class="cart-btn">Cart</a>
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+  </header>
+
+  <main class="dashboard-wrapper">
+    <div class="dashboard-header">
+      <h1>User Dashboard & Records</h1>
+      <p>Track your platform activity, records, and account details</p>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="profile-details-card">
+        <div class="avatar-circle"><%= user.charAt(0).toUpperCase() %></div>
+        <h2><%= user %></h2>
+        <p class="user-email"><%= email %></p>
+        <div class="status-badge">Verified Premium Member</div>
+        <hr class="dash-divider">
+        <div class="user-quick-stats">
+          <div class="stat-box">
+            <span class="stat-label">Total Orders</span>
+            <span class="stat-value"><%= orders.length %></span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Total Spent</span>
+            <span class="stat-value" style="color:#ff0000;">Tsh. <%= Number(totalSpent).toLocaleString() %></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="records-content-card">
+        <div class="records-card-header">
+          <h3>Recent Shopping Records</h3>
+          <span class="live-indicator">Live Tracking</span>
+        </div>
+
+        <div class="records-list">
+          <% if (orders.length > 0) { %>
+            <% orders.forEach(function(order) { %>
+              <div class="record-row">
+                <div class="record-icon"></div>
+                <div class="record-info">
+                  <h4>Purchased: <%= order.product_name %></h4>
+                  <span class="record-date">Transaction processed successfully</span>
+                </div>
+                <div class="record-status">
+                  <span class="price-tag">Tsh. <%= Number(order.price).toLocaleString() %> /=</span>
+                  <span class="status-pill delivered">Delivered</span>
+                </div>
+              </div>
+            <% }); %>
+          <% } else { %>
+            <div class="record-row">
+              <div class="record-icon" style="background:#e8f5e9;"></div>
+              <div class="record-info">
+                <h4>Account Created Successfully</h4>
+                <span class="record-date">Welcome to Gulio Mtandaoni Premium Marketplace</span>
+              </div>
+              <div class="record-status">
+                <span class="status-pill active">Completed</span>
+              </div>
+            </div>
+            <div class="record-row">
+              <div class="record-icon" style="background:#ffebee;"></div>
+              <div class="record-info">
+                <h4>Secure Login Registered</h4>
+                <span class="record-date">Session authenticated via secure handshake</span>
+              </div>
+              <div class="record-status">
+                <span class="status-pill active">Verified</span>
+              </div>
+            </div>
+            <div class="empty-records-notice">
+              <p>No recent product purchases found on your record.</p>
+              <a href="/marketplace" class="shop-now-dash">Go Buy Something</a>
+            </div>
+          <% } %>
+        </div>
+
+        <div class="dashboard-help-box">
+          <h4>Need help with your records?</h4>
+          <p>If an order record looks incorrect or is missing, please contact our 24/7 Gen-Z support desk.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="market-footer">
+    <p>&copy; 2026 Gulio Mtandaoni — Premium Marketplace</p>
+  </footer>
+</body>
+</html>
