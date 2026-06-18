@@ -36,6 +36,11 @@ app.use('/marketplace', require('./routes/marketplace'));
 app.use('/cart', require('./routes/cart'));
 app.use('/activities', require('./routes/activities'));
 
+// Ad/Promo landing page
+app.get('/ad', (req, res) => {
+    res.render('ad');
+});
+
 // Server Listener
 app.listen(PORT, () => {
     console.log(`Gulio server running on port ${PORT}`);
